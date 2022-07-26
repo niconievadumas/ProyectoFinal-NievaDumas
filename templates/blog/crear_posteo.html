@@ -10,7 +10,7 @@
 </p>
 
 <p>
-    <form action={% url 'crear_posteo' %} method="post">
+    <form action={% url 'crear_posteo' %} method="post" enctype="multipart/form-data">
         {% csrf_token %}
                
         <table>

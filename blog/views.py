@@ -4,35 +4,38 @@ from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from datetime import datetime
-
-from .forms import FormPosteo
+from accounts.models import MasDatosUsuario
+from .forms import BusquedaPosteo, FormPosteo
 from .models import Posteo
 
 
+def post(request):
+    return render(request, 'blog/post.html')
+
 class ListadoPosteos(ListView):
     model = Posteo 
-    template_name = 'blog/posteo.html'
+    template_name = 'blog/listado_posteos.html'
 
-    # def get_queryset(self):
-    #     apodo = self.request.GET.get("apodo", "")
-    #     if apodo:
-    #         object_list = self.model.objects.filter(apodo__icontains=apodo)
-    #     else: 
-    #         object_list = self.model.objects.all()
+    def get_queryset(self):
+        titulo = self.request.GET.get("titulo", "")
+        if titulo:
+            object_list = self.model.objects.filter(titulo__icontains=titulo)
+        else: 
+            object_list = self.model.objects.all()
 
-    #     return object_list
+        return object_list
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context["form"] = BusquedaGato()
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["form"] = BusquedaPosteo()
 
-    #     return context 
+        return context 
 
 
 def crear_posteo(request): 
     
     if request.method == "POST":
-        form = FormPosteo(request.POST) 
+        form = FormPosteo(request.POST, request.FILES) 
 
         if form.is_valid():
             data = form.cleaned_data
@@ -41,7 +44,7 @@ def crear_posteo(request):
                 titulo=data.get("titulo"), 
                 subtitulo=data.get("subtitulo"), 
                 contenido=data.get("contenido"), 
-                autor=data.get("autor"), 
+                autor= request.user,
                 fecha_creacion=datetime.now(),
                 imagen=data.get("imagen")
                 )

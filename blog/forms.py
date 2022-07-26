@@ -9,7 +9,7 @@ class FormPosteo(forms.Form):
     imagen = forms.ImageField()
 
 
-# class BusquedaGato(forms.Form):
-#     apodo = forms.CharField(max_length=30, required=False)
+class BusquedaPosteo(forms.Form):
+    titulo = forms.CharField(max_length=30, required=False)
 
 
