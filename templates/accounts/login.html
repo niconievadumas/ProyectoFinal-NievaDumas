@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title> Login</title>
+{% endblock title %}
+
+{% block despues_del_header %}
+<p>
+    <a href={% url 'index' %}>Volver</a>    
+</p>
+
+<p>
+    <form action={% url 'login' %} method="post">
+        {% csrf_token %}
+        
+        <table>{{form}}</table>
+        <button>Loguearse</button>
+    </form>
+</p>
+{% endblock despues_del_header %}

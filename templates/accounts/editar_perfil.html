@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>Editar Perfil</title>
+{% endblock title %}
+
+
+
+
+{% block despues_del_header %}
+
+<h3 class="post-subtitle">Editando perfil de {{request.user.username}}</h3>
+
+<p>
+    <form action={% url 'editar_perfil' %} method="post" enctype="multipart/form-data">  
+        {% csrf_token %}
+        
+        <table>{{form}}</table>
+        <button>Editar</button>
+    </form>
+</p>
+ 
+
+{% endblock despues_del_header %}
