@@ -5,7 +5,7 @@ from ckeditor.fields import RichTextFormField
 class FormPosteo(forms.Form):
     titulo = forms.CharField(max_length=30)
     subtitulo = forms.CharField(max_length=30)
-    contenido = RichTextField()
+    contenido = RichTextFormField()
     imagen = forms.ImageField()
 
 

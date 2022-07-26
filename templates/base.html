@@ -28,7 +28,7 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'index' %}>Home</a></li>
-                        {% comment %} <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="post.html">Sample Post</a></li> {% endcomment %}
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'listado_posteos' %}>Posteos</a></li> 
                         {% if request.user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-3" href={% url 'perfil' %}>
                             {% if request.user.masdatosusuario.avatar %}

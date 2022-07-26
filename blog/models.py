@@ -1,6 +1,6 @@
 from urllib import request
 from django.db import models
-from ckeditor import RichTextField
+from ckeditor.fields import RichTextField
 
 
 
@@ -11,7 +11,7 @@ class Posteo(models.Model):
     contenido = RichTextField()
     autor = models.CharField(max_length=30)
     fecha_creacion = models.DateTimeField(null=True)
-    imagen = 
+    imagen = models.ImageField()
  
     def __str__(self):
         return f"{self.titulo} - Autor : {self.autor}"     

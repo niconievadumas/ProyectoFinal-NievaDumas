@@ -5,27 +5,28 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from datetime import datetime
 
-from .forms import BusquedaGato, FormPosteo
+from .forms import FormPosteo
 from .models import Posteo
 
-# class ListadoGatos(ListView):
-#     model = Post
-#     template_name = 'gato/listado_gatos.html'
 
-#     def get_queryset(self):
-#         apodo = self.request.GET.get("apodo", "")
-#         if apodo:
-#             object_list = self.model.objects.filter(apodo__icontains=apodo)
-#         else: 
-#             object_list = self.model.objects.all()
+class ListadoPosteos(ListView):
+    model = Posteo 
+    template_name = 'blog/posteo.html'
 
-#         return object_list
+    # def get_queryset(self):
+    #     apodo = self.request.GET.get("apodo", "")
+    #     if apodo:
+    #         object_list = self.model.objects.filter(apodo__icontains=apodo)
+    #     else: 
+    #         object_list = self.model.objects.all()
 
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context["form"] = BusquedaGato()
+    #     return object_list
 
-#         return context 
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context["form"] = BusquedaGato()
+
+    #     return context 
 
 
 def crear_posteo(request): 
