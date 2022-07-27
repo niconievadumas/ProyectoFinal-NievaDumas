@@ -1,12 +1,27 @@
 {% extends 'base.html' %}
+{% load static %}    
+
 
 {% block title %}
 <title>Crear Posteo</title>
 {% endblock title %}
 
+{% block imagen %}
+        <header class="masthead" style="background-image: url({% static 'inicio/assets/img/crearposteo.jpg' %})">
+{% endblock imagen %}
+
+{% block titulo_sub_header %}
+<h1>Crear Posteo</h1>
+<span class="subheading">"Ya dije mucho y varias veces que escribir es un acto de amor. Y sin eufemismo." Juan Carlos Onetti</span>
+{% endblock titulo_sub_header %}
+
 {% block despues_del_header %}
+
+
 <p>
-    <a href={% url 'listado_posteos' %}>Volver</a>    
+    <button>
+        <a href={% url 'index' %}>Volver</a>    
+    </button>
 </p>
 
 <p>

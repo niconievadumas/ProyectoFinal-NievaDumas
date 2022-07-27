@@ -20,45 +20,51 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light" id="mainNav">
             <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="index.html">El Aleph</a>
+                <a class="navbar-brand" href={% url 'index' %}>El Aleph</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'index' %}>Home</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'index' %}>Inicio</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'listado_posteos' %}>Posteos</a></li> 
                         {% if request.user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'crear_posteo' %}>Nuevo posteo</a></li> 
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-3" href={% url 'perfil' %}>
                             {% if request.user.masdatosusuario.avatar %}
                             <img src={{request.user.masdatosusuario.avatar.url}} alt="" height=36>
                             {% endif %}
                             {{request.user.username}}</a></li>
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'logout' %}>Logout</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'logout' %}>Cerrar sesion</a></li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'login' %}>Login</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'login' %}>Acceder</a></li>
                         <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'registro' %}>Registro</a></li>
                         {% endif %}
-                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href="about.html">About</a></li>
+                        <li class="nav-item"><a class="nav-link px-lg-3 py-3 py-lg-4" href={% url 'about' %}>Acerca de</a></li>
                     </ul>
                 </div>
             </div>
         </nav>
+        {% block header %}
+        
         <!-- Page Header-->
+        {% block imagen %}
         <header class="masthead" style="background-image: url({% static 'inicio/assets/img/home-bg.jpg' %})">
+        {% endblock imagen %}
             <div class="container position-relative px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <div class="site-heading">
-                            <h1>El Aleph</h1>
-                            <span class="subheading">Blog literario</span>
+                            {% block titulo_sub_header %}
+                            {% endblock titulo_sub_header %}
                         </div>
                     </div>
                 </div>
             </div>
         </header>
-
+        {% endblock header %}
+        
         {% block despues_del_header %}
         {% endblock despues_del_header %}
         
@@ -69,23 +75,15 @@
                     <div class="col-md-10 col-lg-8 col-xl-7">
                         <ul class="list-inline text-center">
                             <li class="list-inline-item">
-                                <a href="#!">
+                                <a href="https://www.twitter.com/borgesjorgel" target='_blanck'>
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
                                         <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
                                     </span>
                                 </a>
-                            </li>
+                            </li>                           
                             <li class="list-inline-item">
-                                <a href="#!">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fas fa-circle fa-stack-2x"></i>
-                                        <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a href="https://github.com/niconievadumas" target='_blanck'>
+                                <a href="https://github.com/niconievadumas/ProyectoFinal-NievaDumas" target='_blanck'>
                                     <span class="fa-stack fa-lg">
                                         <i class="fas fa-circle fa-stack-2x"></i>
                                         <i class="fab fa-github fa-stack-1x fa-inverse"></i>

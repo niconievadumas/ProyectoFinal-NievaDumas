@@ -9,7 +9,7 @@ class Posteo(models.Model):
     contenido = RichTextField(null=True)
     autor = models.CharField(max_length=30)
     fecha_creacion = models.DateTimeField(null=True)    
-    imagen = models.ImageField(upload_to='posteos', null=True, blank=True)
+    imagen = models.ImageField(upload_to='posteos', blank=True)
  
     def __str__(self):
         return f"{self.titulo} - Autor : {self.autor}"     

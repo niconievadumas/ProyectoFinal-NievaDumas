@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-<title>Registro</title>
+<title>Editar Posteo</title>
 {% endblock title %}
 
 {% block titulo_sub_header %}
@@ -11,15 +11,14 @@
 
 {% block despues_del_header %}
 <p>
-    <a href={% url 'index' %}>Volver</a>    
+    <a href={% url 'listado_posteos' %}>Volver</a>
 </p>
 <p>
-    <form action={% url 'registro' %} method="post">
+    <form action={% url 'editar_posteo' posteo.id %} method="post" enctype="multipart/form-data">
         {% csrf_token %}
-        <table>
-            {{form}}
-        </table>
-        <button>Registrarse</button>
+    
+        <table>{{form}}</table>
+        <button>Editar</button>
     </form>
 </p>
 {% endblock despues_del_header %}

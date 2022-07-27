@@ -1,16 +1,14 @@
 from django.views.generic.list import ListView
-from django.views.generic.edit import DeleteView, UpdateView, CreateView
+from django.views.generic.edit import DeleteView
 from django.views.generic import DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from datetime import datetime
-from accounts.models import MasDatosUsuario
 from .forms import BusquedaPosteo, FormPosteo
 from .models import Posteo
+from django.contrib.auth.decorators import login_required
 
 
-def post(request):
-    return render(request, 'blog/post.html')
 
 class ListadoPosteos(ListView):
     model = Posteo 
@@ -31,7 +29,7 @@ class ListadoPosteos(ListView):
 
         return context 
 
-
+@login_required
 def crear_posteo(request): 
     
     if request.method == "POST":
@@ -41,9 +39,9 @@ def crear_posteo(request):
             data = form.cleaned_data
 
             posteo = Posteo(
-                titulo=data.get("titulo"), 
-                subtitulo=data.get("subtitulo"), 
-                contenido=data.get("contenido"), 
+                titulo=data.get("titulo").title(), 
+                subtitulo=data.get("subtitulo").capitalize(), 
+                contenido=data.get("contenido").capitalize(), 
                 autor= request.user,
                 fecha_creacion=datetime.now(),
                 imagen=data.get("imagen")
@@ -60,60 +58,48 @@ def crear_posteo(request):
     return render(request, 'blog/crear_posteo.html', {"form": form_posteo})  
     
     
-# class EditarGato(LoginRequiredMixin, UpdateView):
-#     model = Gato
-#     template_name = 'gato/editar_gato.html'
-#     success_url = '/mascotas/gatos'
-#     fields = ['apodo', 'edad','fecha_creacion']
+@login_required
+def editar_posteo(request, id):
 
+    posteo = Posteo.objects.get(id=id) 
 
-# class EliminarGato(LoginRequiredMixin, DeleteView):
-#     model = Gato
-#     template_name = 'gato/eliminar_gato.html'
-#     success_url = '/mascotas/gatos'
+    if request.method == "POST":
+        form = FormPosteo(request.POST, request.FILES) 
 
+        if form.is_valid():
+            posteo.titulo = form.cleaned_data.get("titulo")
+            posteo.subtitulo = form.cleaned_data.get("subtitulo")
+            posteo.contenido = form.cleaned_data.get("contenido")
+            posteo.imagen = form.cleaned_data.get("imagen")
+            
+            posteo.save()
 
-# class MostrarGato(DetailView):  
-#     model = Gato
-#     template_name = 'gato/mostrar_gato.html' 
+            return redirect("listado_posteos")
 
-# @login_required
-# def editar_perro(request, id):
-
-#     perro = Perro.objects.get(id=id) 
-
-#     if request.method == "POST":
-#         form = FormPerro(request.POST) 
-
-#         if form.is_valid():
-#             perro.nombre = form.cleaned_data.get("nombre")
-#             perro.edad = form.cleaned_data.get("edad")
-#             perro.descripcion = form.cleaned_data.get("descripcion")
-#             perro.fecha_creacion = form.cleaned_data.get("fecha_creacion")
-#             perro.save()
-
-#             return redirect("listado_perros")
-
-#         else:
-#             return render(request, 'perro/editar_perro.html', {"form": form, "perro":perro})  
+        else:
+            return render(request, 'blog/editar_posteo.html', {"form": form, "posteo":posteo})  
     
-#     form_perro = FormPerro(
-#         initial={
-#             "nombre": perro.nombre, 
-#             "edad": perro.edad, 
-#             "descripcion": perro.descripcion, 
-#             "fecha_creacion": perro.fecha_creacion
-#             })
+    form_posteo = FormPosteo(
+        initial={
+            "titulo": posteo.titulo, 
+            "subtitulo": posteo.subtitulo, 
+            "contenido": posteo.contenido, 
+            "imagen": posteo.imagen 
+            })
 
-#     return render(request, 'perro/editar_perro.html', {"form": form_perro, "perro":perro})  
+    return render(request, 'blog/editar_posteo.html', {"form": form_posteo, "posteo":posteo})  
 
-  
-#     # return redirect("listado_perros")
-    
-# @login_required
-# def eliminar_perro(request, id):
 
-#     perro = Perro.objects.get(id=id)
-#     perro.delete() 
+class EliminarPosteo(LoginRequiredMixin, DeleteView):
+    model = Posteo
+    template_name = 'blog/eliminar_posteo.html'
+    success_url = '/blog/listado_posteos'
 
-#     return redirect("listado_perros") 
+
+class MostrarPosteo(DetailView):  
+    model = Posteo
+    template_name = 'blog/posteo.html' 
+
+
+
+
