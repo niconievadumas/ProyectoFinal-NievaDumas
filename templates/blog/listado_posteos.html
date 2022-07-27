@@ -4,30 +4,78 @@
 <title>Listado de Posteos</title>
 {% endblock title %}
 
+{% block header %}
+
+<!-- Page Header-->
+{% load static %}  
+<header class="masthead" style="background-image: url({% static 'inicio/assets/img/aleph.jpg' %})">
+    <div class="container position-relative px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <div class="page-heading">
+                    <h1>Posteos</h1>
+                    <span class="subheading">“De los diversos instrumentos inventados por el hombre, el más asombroso es el libro; todos los demás son extensiones de su cuerpo… Sólo el libro es una extensión de la imaginación y la memoria” Jorge Luis Borges</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+{% endblock header %}
+
+
 {% block despues_del_header %}
 
 <p>
-    <form action={% url 'listado_posteos' %}>
-        {{form}}
-        <button>Buscar</button>
-    </form>
+    <button>
+        <a href={% url 'index' %}>Volver</a>    
+    </button>
 </p>
 
 <p>
-    {% if object_list %}
-    <ul>
-        {% for posteo in object_list%}
-        <li> {{posteo}} 
-            {% comment %} <a href={% url 'mostrar_gato' gato.id %}>Mostrar</a>
-            <a href={% url 'editar_gato' gato.id %}>Editar</a>
-            <a href={% url 'eliminar_gato' gato.id %}>Eliminar</a> {% endcomment %}
-        </li>
-        {% endfor %}
-    </ul>
-    {% else %}
-       <p> No se encontraron datos. </p>
-    {% endif %}
-    
+    <center>
+        <form action={% url 'listado_posteos' %}>
+            {{form}}
+            <button>Buscar</button>
+        </form>
+    </center>
 </p>
+
+<p>
+    <div class="container px-4 px-lg-5">
+        <div class="row gx-4 gx-lg-5 justify-content-center">
+            <div class="col-md-10 col-lg-8 col-xl-7">
+                <!-- Post preview-->
+                {% if object_list %}
+                    {% for posteo in object_list %}
+                        <div class="post-preview">
+                            <a href={% url 'posteo' posteo.id%}>
+                                <h2 class="post-title">{{posteo.titulo}}</h2>
+                                <h3 class="post-subtitle">{{posteo.subtitulo}}</h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted by
+                                <a href={% url 'perfil' %}>{{posteo.autor}}</a>
+                                en {{posteo.fecha_creacion}}
+                            </p>
+                        </div>
+                        {% if request.user.is_authenticated %}
+                        <font size=3><i><a href={% url 'editar_posteo' posteo.id %}> Editar</a></font></i>&nbsp
+                        <font size=3><i><a href={% url 'eliminar_posteo' posteo.id %}>Eliminar</a></font></i>
+                        {% endif %}
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                        
+                    {% endfor %}
+                    
+                </div>
+            </div>
+        </div>
+            {% else %}
+            <p> <b>
+                No se encontraron datos. 
+            </b>
+            {% endif %}        
+</p>
+
 {% endblock despues_del_header %}
 

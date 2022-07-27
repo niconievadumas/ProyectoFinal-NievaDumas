@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+<title>{{posteo.titulo}}</title>
+{% endblock title %}
+
+{% block titulo_sub_header %}
+<h1>{{posteo.titulo}}</h1>
+<span class="subheading">{{posteo.subtitulo}}</span>
+{% endblock titulo_sub_header %}
+
+{% block despues_del_header %}
+
+<p>
+    <button>
+
+        <a href={% url 'listado_posteos' %}>Volver</a>    
+    </button>
+</p>
+
+        <!-- Post Content-->
+        <article class="mb-4">
+            <div class="container px-4 px-lg-5">    
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-md-10 col-lg-8 col-xl-7">
+                        <p>
+                            {{posteo.contenido | safe}}
+                        </p>
+                        <p> 
+                            <center>
+                                {% if posteo.imagen %}
+                                <img src={{posteo.imagen.url}} alt="" height=250>
+                                {% endif %}
+                            </center>
+                        <p class="post-meta">
+                            Posteo creado por {{posteo.autor}}
+                            &middot; {{posteo.fecha_creacion}}                                          
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </article>
+{% endblock despues_del_header %}
+

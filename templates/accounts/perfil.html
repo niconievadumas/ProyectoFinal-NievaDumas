@@ -4,17 +4,20 @@
 <title>Perfil</title>
 {% endblock title %}
 
+{% block titulo_sub_header %}
+<h1>Perfil</h1>
+<span class="subheading">{{request.user.username}}</span>
+{% endblock titulo_sub_header %}
+
 {% block despues_del_header %}
+<center>
 
-<h3 class="post-subtitle">   {{request.user.username}}
-</h3>
-
-<p>
-    <ul>
-        <li>Nombre: {{request.user.first_name}}</li>
-        <li>Apellido: {{request.user.last_name}}</li>
-        <li>Email: {{request.user.email}}</li>
-        <li>
+    <p>
+        <ul>
+        <p>Nombre: {{request.user.first_name}}</p>
+        <p> Apellido: {{request.user.last_name}}<p>
+        <p>Email: {{request.user.email}}<p>
+        
             <p>Avatar:</p>
             {% if request.user.masdatosusuario.avatar %}
             <img src={{request.user.masdatosusuario.avatar.url}} alt="" height=250>
@@ -23,10 +26,12 @@
     </ul>
 </p>
 <p>
-    <a href={% url 'editar_perfil' %}>Editar mis datos personales</a>
-</p>
-<p>
-    <a href={% url 'cambiar_password' %}>Cambiar password</a>
+    <a href={% url 'editar_perfil' %}>Editar mis datos personales</a>&nbsp &nbsp &middot &nbsp &nbsp
+    
+    <a href={% url 'cambiar_password' %}>Cambiar password</a>&nbsp &nbsp &middot &nbsp &nbsp
+    
+    <a href={% url 'index' %}>Volver al inicio</a>    
 </p>
 
+</center>
 {% endblock despues_del_header %}

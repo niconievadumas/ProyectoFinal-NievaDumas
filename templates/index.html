@@ -1,6 +1,42 @@
 {% extends 'base.html' %}
 
+
 {% block title %}
 <title>El Aleph</title>
 {% endblock title %}
 
+{% block titulo_sub_header %}
+<h1>El Aleph</h1>
+<span class="subheading">Blog literario</span>
+{% endblock titulo_sub_header %}
+
+{% comment %} {% block despues_del_header %}
+<!-- Main Content-->
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            {% if listado_posteos %}
+                {% for posteo in listado_posteos %}
+                    {% for i in range(3) %}
+                        <div class="post-preview">
+                            <a href={% url 'posteo' posteo.id%}>
+                                <h2 class="post-title">{{posteo.titulo[i]}}</h2>
+                                <h3 class="post-subtitle">{{posteo.subtitulo}}</h3>
+                            </a>
+                            <p class="post-meta">
+                                Posted by
+                                <a href={% url 'perfil' %}>{{posteo.autor}}</a>
+                                en {{posteo.fecha_creacion}}
+                            </p>
+                        </div>
+                        <!-- Divider-->
+                        <hr class="my-4" />
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}        
+            <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href={% url 'listado_posteos' %}>Posteos anteriores →</a></div>
+        </div>
+    </div>
+</div>
+{% endblock despues_del_header %} {% endcomment %}
