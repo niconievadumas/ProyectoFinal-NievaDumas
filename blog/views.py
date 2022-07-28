@@ -12,15 +12,17 @@ from django.contrib.auth.decorators import login_required
 
 class ListadoPosteos(ListView):
     model = Posteo 
+    # queryset = self.model.objects.order_by('titulo')
     template_name = 'blog/listado_posteos.html'
+    paginate_by = 5
 
     def get_queryset(self):
         titulo = self.request.GET.get("titulo", "")
         if titulo:
-            object_list = self.model.objects.filter(titulo__icontains=titulo)
+            object_list = self.model.objects.filter(titulo__icontains=titulo).order_by('-fecha_creacion')
         else: 
-            object_list = self.model.objects.all()
-
+            object_list = self.model.objects.all().order_by('-fecha_creacion')
+            
         return object_list
 
     def get_context_data(self, **kwargs):
