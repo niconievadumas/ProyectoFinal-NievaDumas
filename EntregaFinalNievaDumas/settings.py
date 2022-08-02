@@ -58,7 +58,7 @@ ROOT_URLCONF = 'EntregaFinalNievaDumas.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [r'/Users/niconievadumas/Documents/Programacion/CODER/ENTREGAFINAL_NIEVA_DUMAS/templates/', r"C:\Users\Usuario\Desktop\Programacion\CODER\ProyectoFinal-NievaDumas\templates"],
+        'DIRS': [r'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
