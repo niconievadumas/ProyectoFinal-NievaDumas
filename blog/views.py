@@ -69,10 +69,11 @@ def editar_posteo(request, id):
         form = FormPosteo(request.POST, request.FILES) 
 
         if form.is_valid():
-            posteo.titulo = form.cleaned_data.get("titulo")
-            posteo.subtitulo = form.cleaned_data.get("subtitulo")
-            posteo.contenido = form.cleaned_data.get("contenido")
-            posteo.imagen = form.cleaned_data.get("imagen")
+            data = form.cleaned_data
+            posteo.titulo = data.get("titulo")
+            posteo.subtitulo = data.get("subtitulo")
+            posteo.contenido = data.get("contenido")
+            posteo.imagen = data.get("imagen") if data.get("imagen") else posteo.imagen
             
             posteo.save()
 

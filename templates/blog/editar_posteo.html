@@ -17,7 +17,9 @@
     <form action={% url 'editar_posteo' posteo.id %} method="post" enctype="multipart/form-data">
         {% csrf_token %}
     
-        <table>{{form}}</table>
+        <table>{{form}}
+            {{form.media}}
+        </table>
         <button>Editar</button>
     </form>
 </p>
