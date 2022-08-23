@@ -53,14 +53,16 @@
                                 <h3 class="post-subtitle">{{posteo.subtitulo}}</h3>
                             </a>
                             <p class="post-meta">
-                                Posted by
+                                Posteado por
                                 <a href={% url 'perfil' %}>{{posteo.autor}}</a>
                                 en {{posteo.fecha_creacion}}
                             </p>
                         </div>
                         {% if request.user.is_authenticated %}
+                        {% if posteo.autor == request.user.username %}
                         <font size=3><i><a href={% url 'editar_posteo' posteo.id %}> Editar</a></font></i>&nbsp
                         <font size=3><i><a href={% url 'eliminar_posteo' posteo.id %}>Eliminar</a></font></i>
+                        {% endif %}
                         {% endif %}
                         <!-- Divider-->
                         <hr class="my-4" />

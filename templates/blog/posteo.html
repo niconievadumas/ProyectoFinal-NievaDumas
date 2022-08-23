@@ -41,12 +41,14 @@
             </div>
         </article>
         {% if request.user.is_authenticated %}
+        {% if posteo.autor == request.user.username %}
 <center>
     <button>
 
         <font size=4><i><a href={% url 'editar_posteo' posteo.id %}> Editar</a></font></i>&nbsp
     </button>
 </center>
+{% endif %}
 {% endif %}
 {% endblock despues_del_header %}
 

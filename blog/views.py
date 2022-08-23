@@ -70,10 +70,11 @@ def editar_posteo(request, id):
 
         if form.is_valid():
             data = form.cleaned_data
-            posteo.titulo = data.get("titulo")
-            posteo.subtitulo = data.get("subtitulo")
-            posteo.contenido = data.get("contenido")
+            posteo.titulo = data.get("titulo").title()
+            posteo.subtitulo = data.get("subtitulo").capitalize()
+            posteo.contenido = data.get("contenido").capitalize()
             posteo.imagen = data.get("imagen") if data.get("imagen") else posteo.imagen
+            posteo.fecha_creacion = datetime.now()
             
             posteo.save()
 
